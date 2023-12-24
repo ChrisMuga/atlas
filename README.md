@@ -5,5 +5,5 @@
 - Run the shell script
 
 ```sh
-./run.sh
+. ./run.sh
 ```
