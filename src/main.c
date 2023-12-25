@@ -5,12 +5,13 @@ int main(void) {
     printf("Atlas: \n");
     InitWindow(800, 450, "Atlas");
 
-    while (!WindowShouldClose())
-    {
+    while (!WindowShouldClose()) {
         BeginDrawing();
-            ClearBackground(WHITE);
-            DrawText("Atlas", 190, 200, 20, BLACK);
-        EndDrawing();
+
+		ClearBackground(WHITE);
+		DrawText("Atlas", 190, 200, 20, BLACK);
+        
+		EndDrawing();
     }
 
     CloseWindow();
