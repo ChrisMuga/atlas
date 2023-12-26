@@ -12,7 +12,20 @@ A TODOs app built in C
 - Run the shell script
 
 ```sh
+# Building in Mac
+. ./build-mac
+
+# Running the build in Mac
+. ./run-mac
+
+# TODO: building and running in Linux
 . ./run.sh
+```
+
+## Creating the raygui.dynlib for Mac
+
+```sh
+gcc -o raygui.dynlib src/includes/raygui.c -shared -fpic -DRAYGUI_IMPLEMENTATION -framework OpenGL -lm -lpthread -ldl libraylib.a -framework IOKit -framework Cocoa -framework OpenGL
 ```
 
 ## TODOs
