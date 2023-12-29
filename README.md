@@ -30,5 +30,6 @@ gcc -o raygui.dynlib src/includes/raygui.c -shared -fpic -DRAYGUI_IMPLEMENTATION
 
 ## TODOs
 
+- Hook up raygui for mac and linux
 - Add or create TODO items 
 - Store TODO items 
