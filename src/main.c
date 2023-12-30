@@ -4,14 +4,11 @@
 
 #define MAX_INPUT_CHARS     9
 
-//------------------------------------------------------------------------------------
 // Program main entry point
-//------------------------------------------------------------------------------------
 int main(void)
 {
 	printf("Atlas:\n");
     // Initialization
-    //--------------------------------------------------------------------------------------
     const int screenWidth = 800;
     const int screenHeight = 450;
 
@@ -25,11 +22,10 @@ int main(void)
 
     int framesCounter = 0;
 
-    SetTargetFPS(120);               // Set our game to run at 10 frames-per-second
+    SetTargetFPS(120);
 
     // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
-    {
+    while (!WindowShouldClose()){
         // Update
         //----------------------------------------------------------------------------------
         if (CheckCollisionPointRec(GetMousePosition(), textBox)) mouseOnText = true;
