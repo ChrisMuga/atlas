@@ -54,11 +54,11 @@ int main(void)
 
             }
 
-			if (deleteInput) {
-				letterCount-=1;
-				if (letterCount < 0) letterCount = 0;
-				name[letterCount] = '\0';
-			}
+						if (deleteInput) {
+							letterCount-=1;
+							if (letterCount < 0) letterCount = 0;
+							name[letterCount] = '\0';
+						}
 
         }
         else SetMouseCursor(MOUSE_CURSOR_DEFAULT);
