@@ -26,7 +26,6 @@ int main(void)
     int framesCounter = 0;
 
     SetTargetFPS(120);               // Set our game to run at 10 frames-per-second
-    //--------------------------------------------------------------------------------------
 
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -67,12 +66,12 @@ int main(void)
         }
         else SetMouseCursor(MOUSE_CURSOR_DEFAULT);
 
-        if (mouseOnText) framesCounter++;
-        else framesCounter = 0;
-        //----------------------------------------------------------------------------------
+        if (mouseOnText){
+			framesCounter++;
+		} else { 
+			framesCounter = 0; 
+		}
 
-        // Draw
-        //----------------------------------------------------------------------------------
         BeginDrawing();
 
             ClearBackground(RAYWHITE);
@@ -98,14 +97,9 @@ int main(void)
             }
 
         EndDrawing();
-        //----------------------------------------------------------------------------------
     }
 
-    // De-Initialization
-    //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
-    //--------------------------------------------------------------------------------------
-
+    CloseWindow();
     return 0;
 }
 
