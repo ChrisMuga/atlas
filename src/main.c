@@ -2,7 +2,7 @@
 
 #include "raylib.h"
 
-#define MAX_INPUT_CHARS     9
+#define MAX_INPUT_CHARS 300
 
 // Program main entry point
 int main(void)
@@ -12,12 +12,12 @@ int main(void)
     const int screenWidth = 800;
     const int screenHeight = 450;
 
-    InitWindow(screenWidth, screenHeight, "raylib [text] example - input box");
+    InitWindow(screenWidth, screenHeight, "Atlas");
 
     char name[MAX_INPUT_CHARS + 1] = "\0";      // NOTE: One extra space required for null terminator char '\0'
     int letterCount = 0;
 
-    Rectangle textBox = { screenWidth/2.0f - 100, 0, 225, 50 };
+    Rectangle textBox = { 0, 20, screenWidth, 50 };
     bool mouseOnText = false;
 
     int framesCounter = 0;
@@ -55,7 +55,7 @@ int main(void)
 
             if (IsKeyPressed(KEY_BACKSPACE))
             {
-                letterCount--;
+                letterCount-=1;
                 if (letterCount < 0) letterCount = 0;
                 name[letterCount] = '\0';
             }
@@ -71,16 +71,13 @@ int main(void)
         BeginDrawing();
 
             ClearBackground(RAYWHITE);
+			DrawText("Enter Task...", 2, 0, 20, GRAY);
+            DrawRectangleRec(textBox, RAYWHITE);
 
-            DrawText("PLACE MOUSE OVER INPUT BOX!", 240, 140, 20, GRAY);
-
-            DrawRectangleRec(textBox, YELLOW);
-            if (mouseOnText) DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, RED);
-            else DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);
+            DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);
 
             DrawText(name, (int)textBox.x + 5, (int)textBox.y + 8, 40, MAROON);
 
-            DrawText(TextFormat("INPUT CHARS: %i/%i", letterCount, MAX_INPUT_CHARS), 315, 250, 20, DARKGRAY);
 
             if (mouseOnText)
             {
@@ -89,7 +86,6 @@ int main(void)
                     // Draw blinking underscore char
                     if (((framesCounter/20)%2) == 0) DrawText("_", (int)textBox.x + 8 + MeasureText(name, 40), (int)textBox.y + 12, 40, MAROON);
                 }
-                else DrawText("Press BACKSPACE to delete chars...", 230, 300, 20, GRAY);
             }
 
         EndDrawing();
