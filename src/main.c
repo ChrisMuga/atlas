@@ -38,7 +38,7 @@ int main(void)
 
             // Get char pressed (unicode character) on the queue
             int key = GetCharPressed();
-			bool deleteInput = IsKeyPressedRepeat(259) || IsKeyPressed(259);
+						bool deleteInput = IsKeyPressedRepeat(KEY_BACKSPACE) || IsKeyPressed(KEY_BACKSPACE);
 
             // Check if more characters have been pressed on the same frame
             while (key > 0)
