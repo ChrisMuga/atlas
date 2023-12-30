@@ -18,7 +18,7 @@ int main(void)
     char name[MAX_INPUT_CHARS + 1] = "\0"; // NOTE: One extra space required for null terminator char '\0'
     int letterCount = 0;
 
-    Rectangle textBox = { 0, 20, screenWidth, 50 };
+    Rectangle textBox = { 0, 20, screenWidth, 25 };
     bool mouseOnText = false;
 
     int framesCounter = 0;
@@ -74,17 +74,15 @@ int main(void)
 		ClearBackground(RAYWHITE);
 		DrawText("Enter Task...", 2, 0, 20, GRAY);
 		DrawRectangleRec(textBox, RAYWHITE);
-
 		DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);
-
-		DrawText(name, (int)textBox.x + 5, (int)textBox.y + 8, 40, DARKGRAY);
+		DrawText(name, (int)textBox.x + 5, (int)textBox.y + 2.5, 20, DARKGRAY);
 
 		if (mouseOnText)
 		{
 			if (letterCount < MAX_INPUT_CHARS)
 			{
 				// Draw blinking underscore char
-				if (((framesCounter/20)%2) == 0) DrawText("_", (int)textBox.x + 8 + MeasureText(name, 40), (int)textBox.y + 12, 40, DARKGRAY);
+				if (((framesCounter/20)%2) == 0) DrawText("_", (int)textBox.x + 8 + MeasureText(name, 20), (int)textBox.y + 2.5, 20, DARKGRAY);
 			}
 		}
 
