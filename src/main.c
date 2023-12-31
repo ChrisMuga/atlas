@@ -30,6 +30,9 @@ int main(void)
     Rectangle textBox = { 0, 44, screenWidth, 25 };
     bool focusOnInput = false;
 
+	// File to Store records
+	FILE *file_ptr;
+
     int framesCounter = 0;
 
     SetTargetFPS(120);
@@ -48,7 +51,8 @@ int main(void)
 
             // Get char pressed (unicode character) on the queue
             int key = GetCharPressed();
-						bool deleteInput = IsKeyPressedRepeat(KEY_BACKSPACE) || IsKeyPressed(KEY_BACKSPACE);
+			bool deleteInput = IsKeyPressedRepeat(KEY_BACKSPACE) || IsKeyPressed(KEY_BACKSPACE);
+			bool submitInput = IsKeyPressedRepeat(KEY_ENTER) || IsKeyPressed(KEY_ENTER);
 
             // Check if more characters have been pressed on the same frame
             while (key > 0)
@@ -64,11 +68,15 @@ int main(void)
 
             }
 
-						if (deleteInput) {
-							letterCount-=1;
-							if (letterCount < 0) letterCount = 0;
-							name[letterCount] = '\0';
-						}
+			if (deleteInput) {
+				letterCount-=1;
+				if (letterCount < 0) letterCount = 0;
+				name[letterCount] = '\0';
+			}
+
+			if (submitInput) {
+				return 0;
+			}
 
         }
         else SetMouseCursor(MOUSE_CURSOR_DEFAULT);

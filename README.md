@@ -30,8 +30,8 @@ gcc -o raygui.dynlib src/includes/raygui.c -shared -fpic -DRAYGUI_IMPLEMENTATION
 
 ## TODOs
 
-- Get date and render
-- Focus on input on app open
-- Dynamic measurements
+- ~~Get date and render~~
+- ~~Focus on input on app open~~
 - Add or create TODO items 
+- Dynamic measurements
 - Store TODO items 
