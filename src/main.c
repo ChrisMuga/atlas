@@ -15,9 +15,9 @@ int main(void)
 	struct tm *timePtr;
 	timePtr = localtime(&t);
 
-	char current_date[12];
+	char currentDate[12];
 
-	strftime(current_date, sizeof(current_date), "%d/%m/%Y", timePtr);
+	strftime(currentDate, sizeof(currentDate), "%d/%m/%Y", timePtr);
 	
     // Initialization
     const int screenWidth = 800;
@@ -80,7 +80,7 @@ int main(void)
 			}
 
 			if (submitInput) {
-				fprintf(file_ptr, "%s", current_date);
+				fprintf(file_ptr, "%s - %s", currentDate, taskName);
 				letterCount = 0;
 				taskName[0] = '\0';
 			}
@@ -98,7 +98,7 @@ int main(void)
 
 		ClearBackground(RAYWHITE);
 		DrawText("Enter Task...", 2, 0, 20, GRAY);
-		DrawText(current_date, screenWidth - 120, 22, 20, MAROON);
+		DrawText(currentDate, screenWidth - 120, 22, 20, MAROON);
 		DrawRectangleRec(textBox, RAYWHITE);
 		DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);
 		DrawText(taskName, (int)textBox.x + 5, (int)textBox.y + 2.5, 20, DARKGRAY);
