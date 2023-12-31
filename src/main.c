@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 
 #include "raylib.h"
@@ -11,12 +12,12 @@ int main(void)
 	time_t t;
 	time(&t);
 
-	struct tm *time_ptr;
-	time_ptr = localtime(&t);
+	struct tm *timePtr;
+	timePtr = localtime(&t);
 
 	char current_date[12];
 
-	strftime(current_date, sizeof(current_date), "%d/%m/%Y", time_ptr);
+	strftime(current_date, sizeof(current_date), "%d/%m/%Y", timePtr);
 	
     // Initialization
     const int screenWidth = 800;
@@ -24,18 +25,25 @@ int main(void)
 
     InitWindow(screenWidth, screenHeight, "Atlas");
 
-    char name[MAX_INPUT_CHARS + 1] = "\0"; // NOTE: One extra space required for null terminator char '\0'
+    char taskName[MAX_INPUT_CHARS + 1] = "\0"; // NOTE: One extra space required for null terminator char '\0'
     int letterCount = 0;
 
     Rectangle textBox = { 0, 44, screenWidth, 25 };
     bool focusOnInput = false;
 
-	// File to Store records
-	FILE *file_ptr;
-
     int framesCounter = 0;
 
     SetTargetFPS(120);
+
+	// File to Store records
+	FILE *file_ptr;
+
+	file_ptr = fopen("atlas.rec", "w");
+
+	if (file_ptr == NULL) {
+		printf("File not found \n");
+		return 0;
+	}
 
     // Main game loop
     while (!WindowShouldClose()){
@@ -57,8 +65,8 @@ int main(void)
                 // NOTE: Only allow keys in range [32..125]
                 if ((key >= 32) && (key <= 125) && (letterCount < MAX_INPUT_CHARS))
                 {
-                    name[letterCount] = (char)key;
-                    name[letterCount+1] = '\0'; // Add null terminator at the end of the string.
+                    taskName[letterCount] = (char)key;
+                    taskName[letterCount+1] = '\0'; // Add null terminator at the end of the string.
                     letterCount++;
                 }
                 key = GetCharPressed();  // Check next character in the queue
@@ -68,11 +76,13 @@ int main(void)
 			if (deleteInput) {
 				letterCount-=1;
 				if (letterCount < 0) letterCount = 0;
-				name[letterCount] = '\0';
+				taskName[letterCount] = '\0';
 			}
 
 			if (submitInput) {
-				return 0;
+				fprintf(file_ptr, "%s", current_date);
+				letterCount = 0;
+				taskName[0] = '\0';
 			}
 
         }
@@ -91,14 +101,14 @@ int main(void)
 		DrawText(current_date, screenWidth - 120, 22, 20, MAROON);
 		DrawRectangleRec(textBox, RAYWHITE);
 		DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);
-		DrawText(name, (int)textBox.x + 5, (int)textBox.y + 2.5, 20, DARKGRAY);
+		DrawText(taskName, (int)textBox.x + 5, (int)textBox.y + 2.5, 20, DARKGRAY);
 
 		if (focusOnInput)
 		{
 			if (letterCount < MAX_INPUT_CHARS)
 			{
 				// Draw blinking underscore char
-				if (((framesCounter/20)%2) == 0) DrawText("_", (int)textBox.x + 8 + MeasureText(name, 20), (int)textBox.y + 2.5, 20, DARKGRAY);
+				if (((framesCounter/20)%2) == 0) DrawText("_", (int)textBox.x + 8 + MeasureText(taskName, 20), (int)textBox.y + 2.5, 20, DARKGRAY);
 			}
 		}
 
