@@ -33,7 +33,7 @@ gcc -o raygui.dynlib src/includes/raygui.c -shared -fpic -DRAYGUI_IMPLEMENTATION
 - ~~Get date and render~~
 - ~~Focus on input on app open~~
 - ~~Write to file~~
-- ~~Persist file entries~~
+- Persist file entries
 - List file entries on the ui
 - Add or create TODO items 
 - Dynamic measurements
