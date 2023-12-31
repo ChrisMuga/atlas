@@ -39,9 +39,6 @@ int main(void)
 
     // Main game loop
     while (!WindowShouldClose()){
-        // Update
-        /* if (CheckCollisionPointRec(GetMousePosition(), textBox)) focusOnInput = true; */
-        /* else focusOnInput = false; */
 		focusOnInput = true;
 
         if (focusOnInput)
