@@ -28,7 +28,7 @@ int main(void)
     int letterCount = 0;
 
     Rectangle textBox = { 0, 44, screenWidth, 25 };
-    bool mouseOnText = false;
+    bool focusOnInput = false;
 
     int framesCounter = 0;
 
@@ -37,10 +37,11 @@ int main(void)
     // Main game loop
     while (!WindowShouldClose()){
         // Update
-        if (CheckCollisionPointRec(GetMousePosition(), textBox)) mouseOnText = true;
-        else mouseOnText = false;
+        /* if (CheckCollisionPointRec(GetMousePosition(), textBox)) focusOnInput = true; */
+        /* else focusOnInput = false; */
+		focusOnInput = true;
 
-        if (mouseOnText)
+        if (focusOnInput)
         {
             // Set the window's cursor to the I-Beam
             SetMouseCursor(MOUSE_CURSOR_IBEAM);
@@ -72,7 +73,7 @@ int main(void)
         }
         else SetMouseCursor(MOUSE_CURSOR_DEFAULT);
 
-        if (mouseOnText){
+        if (focusOnInput){
 			framesCounter++;
 		} else { 
 			framesCounter = 0; 
@@ -87,7 +88,7 @@ int main(void)
 		DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);
 		DrawText(name, (int)textBox.x + 5, (int)textBox.y + 2.5, 20, DARKGRAY);
 
-		if (mouseOnText)
+		if (focusOnInput)
 		{
 			if (letterCount < MAX_INPUT_CHARS)
 			{
