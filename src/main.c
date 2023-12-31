@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <time.h>
 
 #include "raylib.h"
 
@@ -7,8 +8,16 @@
 // Program main entry point
 int main(void)
 {
-	printf("Atlas:\n");
+	time_t t;
+	time(&t);
 
+	struct tm *time_ptr;
+	time_ptr = localtime(&t);
+
+	char current_date[12];
+
+	strftime(current_date, sizeof(current_date), "%d/%m/%Y", time_ptr);
+	
     // Initialization
     const int screenWidth = 800;
     const int screenHeight = 450;
@@ -18,7 +27,7 @@ int main(void)
     char name[MAX_INPUT_CHARS + 1] = "\0"; // NOTE: One extra space required for null terminator char '\0'
     int letterCount = 0;
 
-    Rectangle textBox = { 0, 20, screenWidth, 25 };
+    Rectangle textBox = { 0, 44, screenWidth, 25 };
     bool mouseOnText = false;
 
     int framesCounter = 0;
@@ -73,6 +82,7 @@ int main(void)
 
 		ClearBackground(RAYWHITE);
 		DrawText("Enter Task...", 2, 0, 20, GRAY);
+		DrawText(current_date, screenWidth - 120, 22, 20, MAROON);
 		DrawRectangleRec(textBox, RAYWHITE);
 		DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);
 		DrawText(name, (int)textBox.x + 5, (int)textBox.y + 2.5, 20, DARKGRAY);
