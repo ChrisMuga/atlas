@@ -80,7 +80,7 @@ int main(void)
 			}
 
 			if (submitInput) {
-				fprintf(file_ptr, "%s - %s", currentDate, taskName);
+				fprintf(file_ptr, "%s - %s\n", currentDate, taskName);
 				letterCount = 0;
 				taskName[0] = '\0';
 			}
