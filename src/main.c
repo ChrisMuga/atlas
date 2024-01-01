@@ -1,10 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
+#include <string.h>
 
 #include "raylib.h"
 
 #define MAX_INPUT_CHARS 300
+#define FILE_URL "/home/x/Desktop/atlas.rec" 
+
+// File Function
+
+void checkFile(char *url) {
+	printf("%s", url);
+}
+
+void addTask(char* task, float inputPosX, int inputPosY) {
+	printf("%s\n", task);
+	DrawText("task", inputPosX, inputPosY, 40, PURPLE);
+}
 
 // Program main entry point
 int main(void)
@@ -16,6 +30,7 @@ int main(void)
 	timePtr = localtime(&t);
 
 	char currentDate[12];
+
 
 	strftime(currentDate, sizeof(currentDate), "%d/%m/%Y", timePtr);
 	
@@ -29,6 +44,9 @@ int main(void)
     int letterCount = 0;
 
     Rectangle textBox = { 0, 44, screenWidth, 25 };
+	// Keep track of item textbox locations on the X Axis
+	int itemPosY = textBox.y + 5;
+
     bool focusOnInput = false;
 
     int framesCounter = 0;
@@ -38,12 +56,10 @@ int main(void)
 	// File to Store records
 	FILE *file_ptr;
 
-	file_ptr = fopen("atlas.rec", "w");
+	file_ptr = fopen(FILE_URL, "a");
 
-	if (file_ptr == NULL) {
-		printf("File not found \n");
-		return 0;
-	}
+	char tasks[1000][301];
+	int c = 0;
 
     // Main game loop
     while (!WindowShouldClose()){
@@ -57,7 +73,6 @@ int main(void)
             // Get char pressed (unicode character) on the queue
             int key = GetCharPressed();
 			bool deleteInput = IsKeyPressedRepeat(KEY_BACKSPACE) || IsKeyPressed(KEY_BACKSPACE);
-			bool submitInput = IsKeyPressedRepeat(KEY_ENTER) || IsKeyPressed(KEY_ENTER);
 
             // Check if more characters have been pressed on the same frame
             while (key > 0)
@@ -79,11 +94,6 @@ int main(void)
 				taskName[letterCount] = '\0';
 			}
 
-			if (submitInput) {
-				fprintf(file_ptr, "%s - %s\n", currentDate, taskName);
-				letterCount = 0;
-				taskName[0] = '\0';
-			}
 
         }
         else SetMouseCursor(MOUSE_CURSOR_DEFAULT);
@@ -103,13 +113,29 @@ int main(void)
 		DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);
 		DrawText(taskName, (int)textBox.x + 5, (int)textBox.y + 2.5, 20, DARKGRAY);
 
-		if (focusOnInput)
-		{
-			if (letterCount < MAX_INPUT_CHARS)
-			{
+		if (focusOnInput) {
+			if (letterCount < MAX_INPUT_CHARS) {
 				// Draw blinking underscore char
 				if (((framesCounter/20)%2) == 0) DrawText("_", (int)textBox.x + 8 + MeasureText(taskName, 20), (int)textBox.y + 2.5, 20, DARKGRAY);
 			}
+
+		}
+		bool submitInput = IsKeyPressedRepeat(KEY_ENTER) || IsKeyPressed(KEY_ENTER);
+		if (submitInput) {
+			fprintf(file_ptr, "%s - %s\n", currentDate, taskName);
+
+			strcpy(tasks[c], taskName);
+
+			letterCount = 0;
+			taskName[0] = '\0';
+			itemPosY += 25;
+
+			c++;
+		}
+
+		// TODO: Move to fx
+		for(int i=0; i < c + 1; i++){
+			DrawText(tasks[i], (int)textBox.x + 5, (int)textBox.y + 22.5 + 20 * i + 1, 20, DARKGRAY);
 		}
 
         EndDrawing();
