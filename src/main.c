@@ -7,7 +7,11 @@
 #include "raylib.h"
 
 #define MAX_INPUT_CHARS 300
-#define FILE_URL "/home/x/Desktop/atlas.rec" 
+
+// Linux
+/* #define FILE_URL "/home/x/Desktop/atlas.rec"  */
+// Mac
+#define FILE_URL "/Users/muga/Desktop/atlas.rec"
 
 // File Function
 
