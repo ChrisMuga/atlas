@@ -9,13 +9,14 @@
 #define MAX_INPUT_CHARS 300
 
 // Linux
-#define FILE_URL "/home/x/Desktop/atlas.rec" 
+/* #define FILE_URL "/home/x/Desktop/atlas.rec"  */
 // Mac
-/* #define FILE_URL "/Users/muga/Desktop/atlas.rec" */
+#define FILE_URL "/Users/muga/Desktop/atlas.rec"
 
 
 void addTask(Font* font, char* task, float inputPosX, int inputPosY) {
-	DrawTextEx(*font, task, { inputPosX, (float)inputPosY }, font->baseSize, 1, DARKGRAY);
+	Vector2 v = { inputPosX, (float)inputPosY };
+	DrawTextEx(*font, task, v, font->baseSize, 1, DARKGRAY);
 }
 
 // Program main entry point
@@ -108,17 +109,21 @@ int main(void)
         BeginDrawing();
 
 		ClearBackground(RAYWHITE);
-		DrawTextEx(appFont, "Enter Task...", { (float)2, (float)0 }, appFont.baseSize, 1, GRAY);
-		DrawTextEx(appFont, currentDate, {(float)(screenWidth - 120), (float)22}, appFont.baseSize, 1, MAROON);
+		Vector2 labelVector = { (float)2, (float)0 };
+		DrawTextEx(appFont, "Enter Task...", labelVector, appFont.baseSize, 1, GRAY);
+		Vector2 currentDateLabelVector = {(float)(screenWidth - 120), (float)22};
+		DrawTextEx(appFont, currentDate, currentDateLabelVector, appFont.baseSize, 1, MAROON);
 		DrawRectangleRec(textBox, RAYWHITE);
 		DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);
-		DrawTextEx(appFont, taskName, {(float)textBox.x + 5, (float)(textBox.y + 2.5)}, appFont.baseSize, 1, DARKGRAY);
+		Vector2 textBoxVector = {(float)textBox.x + 5, (float)(textBox.y + 2.5)};
+		DrawTextEx(appFont, taskName, textBoxVector, appFont.baseSize, 1, DARKGRAY);
 
 		if (focusOnInput) {
 			if (letterCount < MAX_INPUT_CHARS) {
 				// Draw blinking underscore char
 				if (((framesCounter/appFont.baseSize)%2) == 0){ 
-					DrawTextEx(appFont, "_", { (float)(textBox.x + 5 + MeasureText(taskName, appFont.baseSize)), (float)(textBox.y + 2.5) }, appFont.baseSize, 1, DARKGRAY);
+					Vector2 cursorVector = { (float)(textBox.x + 5 + MeasureText(taskName, appFont.baseSize)), (float)(textBox.y + 2.5) };
+					DrawTextEx(appFont, "_", cursorVector, appFont.baseSize, 1, DARKGRAY);
 				}
 			}
 
