@@ -122,7 +122,11 @@ int main(void)
 			if (letterCount < MAX_INPUT_CHARS) {
 				// Draw blinking underscore char
 				if (((framesCounter/appFont.baseSize)%2) == 0){ 
-					Vector2 cursorVector = { (float)(textBox.x + 5 + MeasureText(taskName, appFont.baseSize)), (float)(textBox.y + 2.5) };
+					Vector2 cursorVector = { 
+						(float)(textBox.x + 5 + MeasureTextEx(appFont, taskName, appFont.baseSize, 1).x), 
+						(float)(textBox.y + 2.5) 
+					};
+
 					DrawTextEx(appFont, "_", cursorVector, appFont.baseSize, 1, DARKGRAY);
 				}
 			}
