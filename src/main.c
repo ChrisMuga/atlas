@@ -9,9 +9,9 @@
 #define MAX_INPUT_CHARS 300
 
 // Linux
-/* #define FILE_URL "/home/x/Desktop/atlas.rec"  */
+#define FILE_URL "/home/x/Desktop/atlas.rec" 
 // Mac
-#define FILE_URL "/Users/muga/Desktop/atlas.rec"
+/* #define FILE_URL "/Users/muga/Desktop/atlas.rec" */
 
 
 void addTask(Font* font, char* task, float inputPosX, int inputPosY) {
