@@ -137,6 +137,7 @@ int main(void)
 			}
 
 		}
+
 		bool submitInput = IsKeyPressedRepeat(KEY_ENTER) || IsKeyPressed(KEY_ENTER);
 		if (submitInput) {
 			strcpy(tasks[c], taskName);
