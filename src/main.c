@@ -9,15 +9,9 @@
 #define MAX_INPUT_CHARS 300
 #define FILE_URL "/home/x/Desktop/atlas.rec" 
 
-// File Function
 
-void checkFile(char *url) {
-	printf("%s", url);
-}
-
-void addTask(char* task, float inputPosX, int inputPosY) {
-	printf("%s\n", task);
-	DrawText("task", inputPosX, inputPosY, 40, PURPLE);
+void addTask(Font* font, char* task, float inputPosX, int inputPosY) {
+	DrawTextEx(*font, task, { inputPosX, (float)inputPosY }, font->baseSize, 1, DARKGRAY);
 }
 
 // Program main entry point
@@ -42,6 +36,9 @@ int main(void)
 
     char taskName[MAX_INPUT_CHARS + 1] = "\0"; // NOTE: One extra space required for null terminator char '\0'
     int letterCount = 0;
+
+	// Set font
+	Font appFont = LoadFontEx("roboto.ttf", 20, 0, 250);
 
     Rectangle textBox = { 0, 44, screenWidth, 25 };
 	// Keep track of item textbox locations on the X Axis
@@ -107,23 +104,23 @@ int main(void)
         BeginDrawing();
 
 		ClearBackground(RAYWHITE);
-		DrawText("Enter Task...", 2, 0, 20, GRAY);
-		DrawText(currentDate, screenWidth - 120, 22, 20, MAROON);
+		DrawTextEx(appFont, "Enter Task...", { (float)2, (float)0 }, appFont.baseSize, 1, GRAY);
+		DrawTextEx(appFont, currentDate, {(float)(screenWidth - 120), (float)22}, appFont.baseSize, 1, MAROON);
 		DrawRectangleRec(textBox, RAYWHITE);
 		DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);
-		DrawText(taskName, (int)textBox.x + 5, (int)textBox.y + 2.5, 20, DARKGRAY);
+		DrawTextEx(appFont, taskName, {(float)textBox.x + 5, (float)(textBox.y + 2.5)}, appFont.baseSize, 1, DARKGRAY);
 
 		if (focusOnInput) {
 			if (letterCount < MAX_INPUT_CHARS) {
 				// Draw blinking underscore char
-				if (((framesCounter/20)%2) == 0) DrawText("_", (int)textBox.x + 8 + MeasureText(taskName, 20), (int)textBox.y + 2.5, 20, DARKGRAY);
+				if (((framesCounter/appFont.baseSize)%2) == 0){ 
+					DrawTextEx(appFont, "_", { (float)(textBox.x + 5 + MeasureText(taskName, appFont.baseSize)), (float)(textBox.y + 2.5) }, appFont.baseSize, 1, DARKGRAY);
+				}
 			}
 
 		}
 		bool submitInput = IsKeyPressedRepeat(KEY_ENTER) || IsKeyPressed(KEY_ENTER);
 		if (submitInput) {
-			fprintf(file_ptr, "%s - %s\n", currentDate, taskName);
-
 			strcpy(tasks[c], taskName);
 
 			letterCount = 0;
@@ -135,7 +132,7 @@ int main(void)
 
 		// TODO: Move to fx
 		for(int i=0; i < c + 1; i++){
-			DrawText(tasks[i], (int)textBox.x + 5, (int)textBox.y + 22.5 + 20 * i + 1, 20, DARKGRAY);
+			addTask(&appFont, tasks[i], (int)textBox.x + 5, (int)textBox.y + 22.5 + appFont.baseSize * i + 1);
 		}
 
         EndDrawing();
