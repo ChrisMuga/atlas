@@ -109,12 +109,17 @@ int main(void)
         BeginDrawing();
 
 		ClearBackground(RAYWHITE);
+
 		Vector2 labelVector = { (float)2, (float)0 };
 		DrawTextEx(appFont, "Enter Task...", labelVector, appFont.baseSize, 1, GRAY);
+		
 		Vector2 currentDateLabelVector = {(float)(screenWidth - 120), (float)22};
 		DrawTextEx(appFont, currentDate, currentDateLabelVector, appFont.baseSize, 1, MAROON);
+
 		DrawRectangleRec(textBox, RAYWHITE);
+		
 		DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);
+		
 		Vector2 textBoxVector = {(float)textBox.x + 5, (float)(textBox.y + 2.5)};
 		DrawTextEx(appFont, taskName, textBoxVector, appFont.baseSize, 1, DARKGRAY);
 
