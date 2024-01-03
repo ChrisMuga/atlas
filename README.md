@@ -36,7 +36,8 @@ gcc -o raygui.dynlib src/includes/raygui.c -shared -fpic -DRAYGUI_IMPLEMENTATION
 - ~~Persist file entries~~
 - ~~Add or create TODO items~~
 - ~~Store TODO items~~ 
+- ~~DRY task item element creation in loop~~
+- Add bullet as a prefix
 - Consolidate temp file depending on operating system i.e Linux vs Mac
 - List file entries on the ui
 - Dynamic measurements
-- DRY task item element creation in loop

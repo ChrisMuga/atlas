@@ -15,8 +15,8 @@
 
 
 void addTask(Font* font, char* task, float inputPosX, int inputPosY) {
-	Vector2 v = { inputPosX, (float)inputPosY };
-	DrawTextEx(*font, task, v, font->baseSize, 1, DARKGRAY);
+	Vector2 taskVector = { inputPosX, (float)inputPosY };
+	DrawTextEx(*font, task, taskVector, font->baseSize, 1, DARKGRAY);
 }
 
 // Program main entry point
@@ -46,6 +46,7 @@ int main(void)
 	Font appFont = LoadFontEx("roboto.ttf", 20, 0, 250);
 
     Rectangle textBox = { 0, 44, screenWidth, 25 };
+
 	// Keep track of item textbox locations on the X Axis
 	int itemPosY = textBox.y + 5;
 
@@ -149,9 +150,8 @@ int main(void)
 			c++;
 		}
 
-		// TODO: Move to fx
 		for(int i=0; i < c + 1; i++){
-			addTask(&appFont, tasks[i], (int)textBox.x + 5, (int)textBox.y + 22.5 + appFont.baseSize * i + 1);
+			addTask(&appFont, tasks[i], (int)textBox.x + 5, (int)textBox.y + 28.5 + (appFont.baseSize + 2) * i + 1);
 		}
 
         EndDrawing();
