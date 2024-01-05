@@ -34,8 +34,8 @@ int main(void)
 	strftime(currentDate, sizeof(currentDate), "%d/%m/%Y", timePtr);
 	
     // Initialization
-    const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenWidth = GetScreenWidth();
+    const int screenHeight = GetScreenHeight();
 
     InitWindow(screenWidth, screenHeight, "Atlas");
 
@@ -81,8 +81,7 @@ int main(void)
             while (key > 0)
             {				
                 // NOTE: Only allow keys in range [32..125]
-                if ((key >= 32) && (key <= 125) && (letterCount < MAX_INPUT_CHARS))
-                {
+                if ((key >= 32) && (key <= 125) && (letterCount < MAX_INPUT_CHARS)) {
                     taskName[letterCount] = (char)key;
                     taskName[letterCount+1] = '\0'; // Add null terminator at the end of the string.
                     letterCount++;
