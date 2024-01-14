@@ -14,9 +14,17 @@
 #define FILE_URL "/Users/muga/Desktop/atlas.rec"
 
 
-void addTask(Font* font, char* task, float inputPosX, int inputPosY) {
+void addTask(Font* font, char* task, float inputPosX, int inputPosY, int idx) {
 	Vector2 taskVector = { inputPosX, (float)inputPosY };
-	DrawTextEx(*font, task, taskVector, font->baseSize, 1, DARKGRAY);
+
+	// Add a prefix
+	char taskItem[400];
+
+	if (strlen(task) > 0){
+		snprintf(taskItem, 400, "%d. %s", idx + 1, task);
+		DrawTextEx(*font, taskItem, taskVector, font->baseSize, 1, DARKGRAY);
+		taskItem[0] = '\0';
+	}
 }
 
 // Program main entry point
@@ -139,7 +147,7 @@ int main(void)
 		}
 
 		bool submitInput = IsKeyPressedRepeat(KEY_ENTER) || IsKeyPressed(KEY_ENTER);
-		if (submitInput) {
+		if (submitInput && (strlen(taskName) > 0)) {
 			strcpy(tasks[c], taskName);
 
 			letterCount = 0;
@@ -150,7 +158,7 @@ int main(void)
 		}
 
 		for(int i=0; i < c + 1; i++){
-			addTask(&appFont, tasks[i], (int)textBox.x + 5, (int)textBox.y + 28.5 + (appFont.baseSize + 2) * i + 1);
+			addTask(&appFont, tasks[i], (int)textBox.x + 5, (int)textBox.y + 28.5 + (appFont.baseSize + 2) * i + 1, i);
 		}
 
         EndDrawing();
